@@ -1,4 +1,4 @@
-5. 实现双端队列
+55. 实现双端队列
 
 package deque;
 
@@ -6,10 +6,10 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-// 实现 双端队列
+// 实现双端队列
 public class CircularDeque {
 
-    // 1. 使用工具类 双向链表实现
+    // 1. 使用工具类双向链表实现
     class MyCircularDeque1 {
 
         public Deque<Integer> deque;
