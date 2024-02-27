@@ -1,0 +1,98 @@
+public class Heap {
+
+    public int[] elem;
+    public int size;
+
+    public Heap() {
+        this.size = 0;
+        this.elem = new int[10];
+    }
+
+    public void heapInit(int[] array) {
+        for (int i = 0;i < array.length;i++) {
+            this.elem[i] = array[i];
+            size++;
+        }
+    }
+
+    // 向上调整
+    public void siftDown(int parent) {
+        int child = parent * 2 + 1;
+        // 1. 找到最大孩子
+        while (child < size) {
+            // 进循环一定有左孩子
+            if (child + 1 < size && elem[child + 1] > elem[child]) {
+                // 有右孩子且右孩子大于左孩子
+                child++;
+            }
+            // 2. 走到这说明找到左右最大 与父比较
+            if (elem[child] > elem[parent]) {
+                swap(child,parent);
+                parent = child;
+                child = parent * 2 + 1;
+            }else {
+                break;
+            }
+        }
+    }
+
+    // 向下调整建堆
+    public void createHeapByDown() {
+        int parent = (size - 1) / 2;
+        for (int i = parent;i >= 0;i--) {
+            siftDown(i);
+        }
+    }
+
+    // 向上调整
+    public void siftUp(int child) {
+        int parent = (child - 1) / 2;
+        while (child > 0) {
+            if (elem[child] > elem[parent]) {
+                swap(child,parent);
+                child = parent;
+                parent = (child - 1) / 2;
+            }else {
+                break;
+            }
+        }
+    }
+
+    // 向上调整建堆
+    public void createHeapByUp(int[] arr) {
+        for (int i = 1;i < arr.length;i++) {
+            siftUp(i);
+        }
+    }
+
+    public void swap(int x,int y) {
+        int tmp = elem[x];
+        elem[x] = elem[y];
+        elem[y] = tmp;
+    }
+    // 删除堆顶数据
+    public int poll() {
+        int ret = elem[0];
+        swap(0,size - 1);
+        size--;
+        siftDown(0);
+        return ret;
+    }
+    // 插入数据
+    public void offer(int data) {
+        elem[size++] = data;
+        siftUp(size - 1);
+    }
+
+    public static void main(String[] args) {
+        Heap heap = new Heap();
+        int[] arr = {27,15,19,18,28,34,65,49,25,37};
+        heap.heapInit(arr);
+        //heap.createHeapByDown();
+        heap.createHeapByUp(arr);
+        heap.poll();
+        heap.offer(80);
+    }
+
+
+}
